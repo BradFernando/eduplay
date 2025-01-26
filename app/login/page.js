@@ -30,10 +30,14 @@ export default function Login() {
         localStorage.setItem("token", data.token);
         localStorage.setItem("codUsuario", data.codUsuario);
         localStorage.setItem("username", username);
+      
+        // Verificar en consola que se guardó correctamente
+        console.log("Usuario guardado en localStorage:", localStorage.getItem("codUsuario"));
+      
         router.push("/dashboard");
       } else {
         toast.error(data.message || "Error en el inicio de sesión.");
-      }
+      }      
     } catch (error) {
       console.error("Error durante el inicio de sesión:", error);
       toast.error("Hubo un error en el servidor. Inténtalo más tarde.");

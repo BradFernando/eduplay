@@ -17,17 +17,20 @@ export default function Dashboard() {
   const router = useRouter()
 
   useEffect(() => {
-    const storedCodUsuario = localStorage.getItem("codUsuario")
-    const storedUsername = localStorage.getItem("username")
+    const storedCodUsuario = localStorage.getItem("codUsuario");
+    const storedUsername = localStorage.getItem("username");
+  
+    console.log("CodUsuario obtenido del localStorage:", storedCodUsuario);
+  
     if (!storedCodUsuario || !storedUsername) {
-      router.push("/login")
+      router.push("/login");
     } else {
-      setCodUsuario(storedCodUsuario)
-      setUsername(storedUsername)
-      setIsActive(true)
-      fetchTriviaScores(storedCodUsuario)
+      setCodUsuario(storedCodUsuario);
+      setUsername(storedUsername);
+      setIsActive(true);
+      fetchTriviaScores(storedCodUsuario);
     }
-  }, [router])
+  }, [router]);
 
   const fetchTriviaScores = async (codUsuario) => {
     try {
@@ -42,9 +45,35 @@ export default function Dashboard() {
     }
   }
 
-  const handleStartTrivia = (subject) => {
-    router.push(`/trivia/${subject}`)
-  }
+  const handleStartTrivia = async (subject) => {
+    try {
+      const response = await fetch("/api/trivia/start-trivia", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ codUsuario }),
+      });
+  
+      const contentType = response.headers.get("content-type");
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        console.error("Error de la API:", errorMessage);
+        throw new Error(`Error en la API: ${errorMessage}`);
+      }
+  
+      if (contentType && contentType.includes("application/json")) {
+        const data = await response.json();
+        console.log("Trivia creada:", data);
+        router.push(`/trivia/${subject}`);
+      } else {
+        throw new Error("La respuesta de la API no es JSON válido.");
+      }
+    } catch (error) {
+      console.error("Error iniciando trivia:", error);
+    }
+  };
+  
 
   const handleLogout = () => {
     localStorage.removeItem("codUsuario")

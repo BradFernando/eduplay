@@ -7,16 +7,21 @@ export async function POST(req) {
     await dbConnect()
     const { codUsuario, fisica, quimica, biologia } = await req.json()
 
+    if (!codUsuario) {
+      return NextResponse.json({ message: "El código de usuario es requerido" }, { status: 400 })
+    }
+    
     const updateFields = {}
     if (fisica !== undefined) updateFields.puntajeFisica = fisica
     if (quimica !== undefined) updateFields.puntajeQuimica = quimica
     if (biologia !== undefined) updateFields.puntajeBiologia = biologia
-
+    
     const updatedTrivia = await Trivia.findOneAndUpdate(
-      { codUsuario },
+      { codUsuario: codUsuario },  // Buscar el usuario correcto
       { $max: updateFields },
-      { new: true, upsert: true },
-    )
+      { new: true, upsert: true }
+    );
+    
 
     if (!updatedTrivia) {
       return NextResponse.json({ message: "No se pudo actualizar la trivia" }, { status: 404 })
