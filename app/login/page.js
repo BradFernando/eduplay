@@ -1,5 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
+import { toast } from "react-toastify";
 import { useRouter } from "next/navigation"
 import dynamic from "next/dynamic"
 
@@ -14,30 +15,31 @@ export default function Login() {
   const router = useRouter()
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
-      })
-
-      if (!res.ok) {
-        const errorText = await res.text()
-        throw new Error(`HTTP error! status: ${res.status}, message: ${errorText}`)
+      });
+  
+      const data = await res.json();
+  
+      if (res.status === 200) {
+        toast.success("¡Inicio de sesión exitoso! 🎉");
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("codUsuario", data.codUsuario);
+        localStorage.setItem("username", username);
+        router.push("/dashboard");
+      } else {
+        toast.error(data.message || "Error en el inicio de sesión.");
       }
-
-      const data = await res.json()
-      localStorage.setItem("token", data.token)
-      localStorage.setItem("codUsuario", data.codUsuario)
-      localStorage.setItem("username", username)
-      alert(data.message)
-      router.push("/dashboard")
     } catch (error) {
-      console.error("Error during login:", error)
-      alert("An error occurred during login. Please try again.")
+      console.error("Error durante el inicio de sesión:", error);
+      toast.error("Hubo un error en el servidor. Inténtalo más tarde.");
     }
-  }
+  };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 py-12 px-4 sm:px-6 lg:px-8">

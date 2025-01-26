@@ -6,7 +6,7 @@ export default function Home() {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-500 to-purple-600 text-white">
       <main className="text-center">
         <div className="mb-8">
-          <Image src="/logo.svg" alt="EduPlay Logo" width={200} height={200} className="mx-auto" />
+          <Image src="https://i.ibb.co/cxfcSnD/Logo-Logotipo-Marca-Personal-Negocio-Sencillo-Rosa-removebg-preview.png" alt="EduPlay Logo" width={200} height={200} className="mx-auto" />
         </div>
         <h1 className="text-6xl font-bold mb-4">EduPlay</h1>
         <p className="text-2xl mb-8">¡Aprende y diviértete con nuestras trivias educativas!</p>
@@ -24,7 +24,7 @@ export default function Home() {
         </p>
       </main>
       <footer className="mt-auto pb-4">
-        <p>&copy; 2023 EduPlay. Todos los derechos reservados.</p>
+        <p>&copy; 2025 EduPlay. Todos los derechos reservados.</p>
       </footer>
     </div>
   )

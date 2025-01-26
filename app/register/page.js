@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { toast } from "react-toastify";
 import { useRouter } from "next/navigation"
 import dynamic from "next/dynamic"
 
@@ -15,20 +16,27 @@ export default function Register() {
   const router = useRouter()
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password, email }),
-    })
-    const data = await res.json()
-    if (res.ok) {
-      alert(data.message)
-      router.push("/login")
-    } else {
-      alert(data.message)
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password, email }),
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
+        toast.success("¡Registro exitoso! 🎉");
+        router.push("/login");
+      } else {
+        toast.error(data.message || "No se pudo registrar el usuario.");
+      }
+    } catch (error) {
+      toast.error("Hubo un error en el servidor. Inténtalo más tarde.");
     }
-  }
+  };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-500 to-indigo-600 py-12 px-4 sm:px-6 lg:px-8">
