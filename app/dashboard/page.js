@@ -92,38 +92,28 @@ export default function Dashboard() {
     fisica: [
       {
         id: "mov1_1",
-        topic: "Movimiento",
-        link: "https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_all.html?locale=es",
-      },
-      {
-        id: "for2_1",
-        topic: "Fuerzas",
-        link: "https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_all.html?locale=es",
-      },
+        topic: "Simuladores de Física",
+        link: "https://phet.colorado.edu/es/simulations/filter?subjects=physics&type=html",
+      }
     ],
     quimica: [
       {
         id: "trab3_1",
-        topic: "Trabajo y energía",
+        topic: "Simuladores de Química",
         link: "https://phet.colorado.edu/sims/html/energy-skate-park/latest/energy-skate-park_all.html?locale=es",
       },
       {
-        id: "mec4_1",
-        topic: "Mecánica",
-        link: "https://phet.colorado.edu/sims/html/masses-and-springs/latest/masses-and-springs_all.html?locale=es",
-      },
+        id: "ter6_1",
+        topic: "Juego de Tabla Periódica",
+        link: "https://es.educaplay.com/recursos-educativos/781156-jugando_con_la_tabla_periodica.html",
+      }
     ],
     biologia: [
       {
         id: "ond5_1",
-        topic: "Ondas, sonido y luz",
-        link: "https://phet.colorado.edu/sims/html/waves-intro/latest/waves-intro_all.html?locale=es",
-      },
-      {
-        id: "ter6_1",
-        topic: "Energía térmica y termodinámica",
-        link: "https://phet.colorado.edu/sims/html/energy-forms-and-changes/latest/energy-forms-and-changes_all.html?locale=es",
-      },
+        topic: "Simuladores de Biología",
+        link: "https://phet.colorado.edu/es/simulations/filter?subjects=biology&type=html",
+      }
     ],
   };
 
